@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+    <script src="./script.js"></script>
+    <title>Chat IA Curso</title>
+  </head>
+  <body>
+    <div class="app">
+        <div class="menu">
+            <h1>Modelo LLM</h1>
+            <select class="select" name="model" id="model">
+                <option value="gemma">Gemma</option>
+                <option value="Llama 3.3">Llama 3.3</option>
+                <option value="Llama 3.1">Llama 3.1</option>
+                <option value="orca-mini">orca-mini</option>
+            </select>
+        </div>
+        <div class="chatBox">
+            <div id="messages" class="body">
+            </div>
+            <div class="prompt">
+              <div class="promptFeature">
+                <textarea class="promptInput" id="textInput" type="text">
+                </textarea>
+                <button class="promptButton" onClick=buttonHandler()>
+                  >>
+                </button>
+            </div>
+        </div>
+        </div>
+    <script>
+      document.getElementById("textInput").value = ""
+        async function buttonHandler(){ 
+          const messageList = document.getElementById("messages")
+          const model = document.getElementById("model").value
+          const msgText = document.getElementById("textInput").value
+          const messageBox = addMessage({text: msgText, src: "user"})
+          messageList.appendChild(messageBox)
+          const response = await requestHandler({text: msgText, model: model})
+          const responseBox = addMessage(response)
+          messageList.appendChild(responseBox)
+          document.getElementById("textInput").value = ""
+
+        }
+
+    </script>
+  </body>
+</html>
